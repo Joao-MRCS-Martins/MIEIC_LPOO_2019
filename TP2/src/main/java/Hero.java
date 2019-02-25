@@ -51,8 +51,9 @@ public class Hero {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
-        graphics.putString(new TerminalPosition(position.getX() * 2, position.getY() * 2), "\\/");
-        graphics.putString(new TerminalPosition(position.getX() * 2, position.getY() * 2), "/\\");
+        /*graphics.putString(new TerminalPosition(position.getX() * 2, position.getY() * 2), "\\/");
+        graphics.putString(new TerminalPosition(position.getX() * 2, position.getY() * 2+1), "/\\");
+        */
     }
 }
 

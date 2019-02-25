@@ -5,17 +5,19 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Arena {
 
     private int width;
     private int height;
+    Hero hero = new Hero(10,10);
+    private List<Wall> walls;
 
     public Arena (int w, int h) {
         width = w;
         height = h;
     }
-    Hero hero = new Hero(10,10);
 
     public void draw(TextGraphics graphics) throws IOException {
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width * 2, height * 2), ' ');
