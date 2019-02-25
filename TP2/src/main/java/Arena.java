@@ -1,3 +1,7 @@
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
@@ -13,10 +17,9 @@ public class Arena {
     }
     Hero hero = new Hero(10,10);
 
-    public void draw(Screen screen) throws IOException {
-        screen.clear();
-        hero.draw(screen);
-        screen.refresh();
+    public void draw(TextGraphics graphics) throws IOException {
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width * 2, height * 2), ' ');
+        hero.draw(graphics);
     }
 
     public void processKey(com.googlecode.lanterna.input.KeyStroke key) {

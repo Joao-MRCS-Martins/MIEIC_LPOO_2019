@@ -1,4 +1,8 @@
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
 public class Hero {
@@ -43,8 +47,12 @@ public class Hero {
     public Position moveRight() {
         return new Position(position.getX()+1,position.getY());
     }
-    public void draw(Screen screen) {
-        screen.setCharacter(this.getX(),this.getY(), new TextCharacter('X'));
+    public void draw(TextGraphics graphics) {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
+        graphics.putString(new TerminalPosition(position.getX() * 2, position.getY() * 2), "\\/");
+        graphics.putString(new TerminalPosition(position.getX() * 2, position.getY() * 2), "/\\");
     }
 }
 
