@@ -1,10 +1,14 @@
-public class Wall {
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 
-    private int width;
-    private int height;
+public class Wall extends Element {
 
-    public Wall(int w,int h) {
-        width = w;
-        height = h;
+    public Wall(int x, int y) {
+        super(x, y);
+    }
+
+    public void draw(TextGraphics graphics) {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#000ee0"));
+        super.draw(graphics);
     }
 }

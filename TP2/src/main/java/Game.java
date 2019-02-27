@@ -1,4 +1,3 @@
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -11,16 +10,15 @@ import java.io.IOException;
 public class Game {
 
     Screen screen;
-
-    Arena arena = new Arena (200,200);
+    Arena arena;
 
     public Game() throws IOException {
-            Terminal terminal = new DefaultTerminalFactory().createTerminal();
-            screen = new TerminalScreen(terminal);
-
-            screen.setCursorPosition(null);
-            screen.startScreen();
-            screen.doResizeIfNecessary();
+        arena = new Arena(80, 24);
+        Terminal terminal = new DefaultTerminalFactory().createTerminal();
+        screen = new TerminalScreen(terminal);
+        screen.setCursorPosition(null);
+        screen.startScreen();
+        screen.doResizeIfNecessary();
 
     }
     private void draw() throws IOException {
@@ -30,19 +28,21 @@ public class Game {
     }
 
     public void run() throws IOException {
+        this.draw();
+        KeyStroke key;
         while(true) {
+            key = screen.readInput();
             this.draw();
-            KeyStroke key = screen.readInput();
-            this.processKey(key);
+            int game_on = arena.processKey(key);
+            if (game_on == -1) {
+                this.screen.close();
+                System.out.println("GAME OVER! GIT GUD.");
+                break;
+            }
             if(key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
                 screen.close();
                 break;
             }
         }
     }
-
-    private void processKey(com.googlecode.lanterna.input.KeyStroke key) {
-        arena.processKey(key);
-    }
-
 }
