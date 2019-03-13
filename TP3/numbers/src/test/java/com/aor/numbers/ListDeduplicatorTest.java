@@ -25,7 +25,8 @@ public class ListDeduplicatorTest {
         expected.add(4);
         expected.add(5);
 
-        ListDeduplicator deduplicator = new ListDeduplicator(list, new IListSorter() {
+        ListDeduplicator deduplicator = new ListDeduplicator(list);
+        class stubListSorter implements IListSorter{
             @Override
             public List<Integer> sort() {
                 List<Integer> list = new ArrayList<>();
@@ -36,9 +37,9 @@ public class ListDeduplicatorTest {
                 list.add(5);
                 return list;
             }
-        });
+        };
 
-        List<Integer> distinct = deduplicator.deduplicate();
+        List<Integer> distinct = deduplicator.deduplicate(new stubListSorter());
 
         assertEquals(expected, distinct);
     }
@@ -57,9 +58,18 @@ public class ListDeduplicatorTest {
 
         IListSorter sorter = Mockito.mock(IListSorter.class);
         Mockito.when(sorter.sort()).thenReturn(expected);
-        ListDeduplicator deduplicator = new ListDeduplicator(list,sorter);
-
-        List<Integer> deduplicated = deduplicator.deduplicate();
+        ListDeduplicator deduplicator = new ListDeduplicator(list);
+        class stubListSorter implements IListSorter{
+            @Override
+            public List<Integer> sort() {
+                List<Integer> list = new ArrayList<>();
+                list.add(1);
+                list.add(2);
+                list.add(4);
+                return list;
+            }
+        };
+        List<Integer> deduplicated = deduplicator.deduplicate(new stubListSorter());
 
         assertEquals(expected, deduplicated);
     }

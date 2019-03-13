@@ -8,11 +8,9 @@ import java.util.List;
  */
 public class ListDeduplicator implements IListDeduplicator {
     private final List<Integer> list;
-    private IListSorter sorter;
 
-    public ListDeduplicator(List<Integer> list, IListSorter sorter) {
+    public ListDeduplicator(List<Integer> list) {
         this.list = list;
-        this.sorter = sorter;
     }
 
     /**
@@ -21,7 +19,7 @@ public class ListDeduplicator implements IListDeduplicator {
      * but without duplicates. The order of the numbers might
      * change.
      */
-    public List<Integer> deduplicate() {
+    public List<Integer> deduplicate(IListSorter sorter) {
         List<Integer> sorted = sorter.sort();
         List<Integer> unique = new ArrayList<>();
 

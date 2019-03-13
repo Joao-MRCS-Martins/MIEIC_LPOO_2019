@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 
 public class ListAggregatorTest {
     List<Integer> list;
@@ -55,15 +56,15 @@ public class ListAggregatorTest {
         ListAggregator aggregator = new ListAggregator(list);
 
         int distinct = aggregator.distinct(new IListDeduplicator() {
-           @Override
-           public List<Integer> deduplicate() {
-               list = new ArrayList<>();
-               list.add(1);
-               list.add(2);
-               list.add(4);
-               list.add(5);
-               return list;
-           }
+            @Override
+            public List<Integer> deduplicate(IListSorter sorter) {
+                list = new ArrayList<>();
+                list.add(1);
+                list.add(2);
+                list.add(4);
+                list.add(5);
+                return list;
+            }
        });
 
         assertEquals(4, distinct);
@@ -95,7 +96,7 @@ public class ListAggregatorTest {
         expected.add(2);
         expected.add(4);
         IListDeduplicator deduplicator = Mockito.mock(IListDeduplicator.class);
-        Mockito.when(deduplicator.deduplicate()).thenReturn(expected);
+        Mockito.when(deduplicator.deduplicate(any(IListSorter.class))).thenReturn(expected);
         int distinct = aggregator.distinct(deduplicator);
 
         assertEquals(3, distinct);
