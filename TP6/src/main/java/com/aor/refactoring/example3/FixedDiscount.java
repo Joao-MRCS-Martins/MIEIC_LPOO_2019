@@ -9,9 +9,6 @@ public class FixedDiscount implements Discount {
 
     @Override
     public double applyDiscount(double price) {
-        if (fixed > 0 && fixed > price)
-            return 0;
-        else
-            return price - fixed;
+        return fixed > price ? 0 : price - fixed;
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public class Tree {
     public Date plantedAt;
 
-    public Location location;
+    private Location location;
 
     private List<Date> appraisalDates;
 
